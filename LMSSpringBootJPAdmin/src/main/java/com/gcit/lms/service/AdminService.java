@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gcit.lms.entity.Author;
 import com.gcit.lms.entity.Book;
 import com.gcit.lms.entity.Branch;
+import com.gcit.lms.entity.Genre;
 import com.gcit.lms.repositories.AuthorRepository;
 import com.gcit.lms.repositories.BookRepository;
 import com.gcit.lms.repositories.BranchRepository;
+import com.gcit.lms.repositories.GenreRepository;
 
 @RestController
 public class AdminService {
@@ -29,6 +31,9 @@ public class AdminService {
 	@Autowired
 	BranchRepository branchRepo;
 
+	@Autowired
+	GenreRepository genreRepo;
+	
 	@RequestMapping(value = "/lms/readBranchs", method = RequestMethod.GET, produces = "application/json")
 	public List<Branch> readBranch() {
 		List<Branch> branchs = new ArrayList<>();
@@ -86,6 +91,31 @@ public class AdminService {
 		return null;
 	}
 	
+	@RequestMapping(value = "/lms/readAllGenres", method = RequestMethod.GET, produces = "application/json")
+	public List<Genre> readAllGenres() {
+		try {
+				return genreRepo.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@RequestMapping(value = "/lms/saveGenre", method = RequestMethod.POST, consumes = "application/json")
+	public String saveGenre(@RequestBody Genre genre) {
+		String returnString = "";
+		try {
+			genreRepo.save(genre);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return returnString;
+	}
+
+	@RequestMapping(value = "/lms/deleteGenre", method = RequestMethod.GET)
+	public void deleteGenre(@RequestParam int genreId) {
+		genreRepo.deleteById(genreId);
+	}	
 	
 //	@RequestMapping(value = "/lms/readAuthorsByName/{searchString}", method = RequestMethod.GET, produces = "application/json")
 //	@ResponseBody
@@ -122,5 +152,4 @@ public class AdminService {
 		}
 		return returnString;
 	}
-
 }

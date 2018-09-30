@@ -5,15 +5,40 @@ package com.gcit.lms.entity;
 
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 /**
  * @author joe
  *
  */
+
+@Entity
+@Table(name="tbl_genre", catalog="library")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="genreName", scope=Genre.class)	
 public class Genre {
-	
+	@Id
+	@Column(name = "genre_id")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer genreId;
+	
+	@NotEmpty
+	@Column(name="genre_name")
+	@Length(max=45)
 	private String genreName;
-	private List<Book> books;
+	
+//	private List<Book> books;
+	
 	/**
 	 * @return the genreId
 	 */
@@ -41,13 +66,13 @@ public class Genre {
 	/**
 	 * @return the books
 	 */
-	public List<Book> getBooks() {
-		return books;
-	}
-	/**
-	 * @param books the books to set
-	 */
-	public void setBooks(List<Book> books) {
-		this.books = books;
-	}
+//	public List<Book> getBooks() {
+//		return books;
+//	}
+//	/**
+//	 * @param books the books to set
+//	 */
+//	public void setBooks(List<Book> books) {
+//		this.books = books;
+//	}
 }
