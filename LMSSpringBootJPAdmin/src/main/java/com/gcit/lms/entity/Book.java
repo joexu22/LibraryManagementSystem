@@ -39,10 +39,14 @@ public class Book {
 	private String title;
 //	private Publisher publisher;
 	
-	@ManyToMany(fetch=FetchType.EAGER)
+	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name = "tbl_book_authors", joinColumns = { @JoinColumn(name = "bookId") }, inverseJoinColumns = { @JoinColumn(name = "authorId") })
 	private List<Author> authors;
-//	private List<Genre> genres;
+	
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(name = "tbl_book_genres", joinColumns = { @JoinColumn(name = "bookId") }, inverseJoinColumns = { @JoinColumn(name = "genre_id") })
+	private List<Genre> genres;
+
 	/**
 	 * @return the bookId
 	 */
@@ -91,16 +95,16 @@ public class Book {
 	public void setAuthors(List<Author> authors) {
 		this.authors = authors;
 	}
-//	/**
-//	 * @return the genres
-//	 */
-//	public List<Genre> getGenres() {
-//		return genres;
-//	}
-//	/**
-//	 * @param genres the genres to set
-//	 */
-//	public void setGenres(List<Genre> genres) {
-//		this.genres = genres;
-//	}
+	/**
+	 * @return the genres
+	 */
+	public List<Genre> getGenres() {
+		return genres;
+	}
+	/**
+	 * @param genres the genres to set
+	 */
+	public void setGenres(List<Genre> genres) {
+		this.genres = genres;
+	}
 }
