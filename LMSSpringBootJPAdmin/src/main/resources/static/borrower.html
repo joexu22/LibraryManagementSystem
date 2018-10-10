@@ -1,0 +1,38 @@
+<!--
+<br>
+<div class="container marketing" style="text-align: center;"
+	ng-controller="authorController">
+	<h2>Please Enter Your Card ID:</h2>
+
+	<div class="form-group">
+		<label for="usr">ID:</label> <input type="text" class="form-control"
+			id="usr" maxlength="45" ng-model="borrowerId"
+			value="Enter Borrower ID">
+	</div>
+
+	<a href="/#/borrowerOptions" type="button" class="btn btn-primary"
+		ng-click="enterBorrowerId(borrowerId)">Enter</a>
+
+	<ul>
+		<h1>{{ borrowerID }}</h1>
+		<li ng-repeat="b in ::borrowers">{{ b.name }}</li>
+	</ul>
+</div>
+-->
+ 
+<br>
+<div class="container marketing" ng-controller="authorController">
+	<h1>{{testingString}}</h1>
+	<h1>Login</h1>
+	<table border="0">
+		<tr>
+			<td>Enter Your Card ID:</td>
+			<td>: <input class="input" type="text" ng-model="cardId" /></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<button class="button" ng-click="enterBorrowerId(cardId)">Login</button>
+			</td>
+		</tr>
+	</table>
+</div>

@@ -3,14 +3,45 @@
  */
 package com.gcit.lms.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 /**
  * @author joe
  *
  */
+
+@Entity
+@Table(name="tbl_borrower", catalog="library")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="name", scope=Borrower.class)
 public class Borrower {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int cardNo;
+	
+	@Column(name="name")
+	@NotEmpty
+	@Length(max=45)
 	private String name;
+
+	@Column(name="address")
+	@NotEmpty
+	@Length(max=45)
 	private String address;
+	
+	@Column(name="phone")
+	@NotEmpty
+	@Length(max=45)
 	private String phone;
 
 	/**

@@ -1,0 +1,21 @@
+<br>
+<div class="container marketing" ng-controller="borrowerController">
+	<ul>
+		<li>{{testingString}}</li>
+		<li>{{testingString}}</li>
+		<li>{{getName()}}</li>
+		<li>{{getCurrentBorrowerName()}}</li>
+		<li>{{Name}}</li>
+		<li>{{borrowerObject.name}}</li>
+		<li>{{borrowerController.getString()}}</li>
+	</ul>
+
+	First Name: <input type="text" ng-model="firstName"><br>
+	Last Name: <input type="text" ng-model="lastName"><br> <br>
+	Full Name: {{firstName + " " + lastName}}
+	<!--
+      <input type="text" ng-model="newValue"></input>
+      <button ng-click="setString(newValue)">Set Values</button><br/>
+      <input type="text" ng-model="objectValue.data"></input>2-way binding to objectValue
+	-->
+</div>

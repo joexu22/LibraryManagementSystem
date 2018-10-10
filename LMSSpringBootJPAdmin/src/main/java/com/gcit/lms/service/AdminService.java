@@ -2,6 +2,7 @@ package com.gcit.lms.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,28 +13,33 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gcit.lms.entity.Author;
 import com.gcit.lms.entity.Book;
+import com.gcit.lms.entity.Borrower;
 import com.gcit.lms.entity.Branch;
 import com.gcit.lms.entity.Genre;
 import com.gcit.lms.repositories.AuthorRepository;
 import com.gcit.lms.repositories.BookRepository;
+import com.gcit.lms.repositories.BorrowerRepository;
 import com.gcit.lms.repositories.BranchRepository;
 import com.gcit.lms.repositories.GenreRepository;
 
 @RestController
 public class AdminService {
-	
+
 	@Autowired
 	AuthorRepository authorRepo;
-	
+
 	@Autowired
 	BookRepository bookRepo;
-	
+
 	@Autowired
 	BranchRepository branchRepo;
 
 	@Autowired
 	GenreRepository genreRepo;
-	
+
+	@Autowired
+	BorrowerRepository borrowerRepo;
+
 	@RequestMapping(value = "/lms/readBranchs", method = RequestMethod.GET, produces = "application/json")
 	public List<Branch> readBranch() {
 		List<Branch> branchs = new ArrayList<>();
@@ -45,7 +51,7 @@ public class AdminService {
 		}
 		return null;
 	}
-	
+
 	@RequestMapping(value = "/lms/saveBranch", method = RequestMethod.POST, consumes = "application/json")
 	public String saveBranch(@RequestBody Branch branch) {
 		String returnString = "";
@@ -56,10 +62,15 @@ public class AdminService {
 		}
 		return returnString;
 	}
-	
+
 	@RequestMapping(value = "/lms/deleteBranch", method = RequestMethod.GET)
 	public void deleteBranch(@RequestParam int branchId) {
 		branchRepo.deleteById(branchId);
+	}
+	
+	@RequestMapping(value = "/lms/deleteAuthor", method = RequestMethod.GET)
+	public void deleteAuthor(@RequestParam int authorId) {
+		authorRepo.deleteById(authorId);
 	}
 
 	@RequestMapping(value = "/lms/readAllAuthors", method = RequestMethod.GET, produces = "application/json")
@@ -80,21 +91,21 @@ public class AdminService {
 		}
 		return null;
 	}
-	
+
 	@RequestMapping(value = "/lms/readAllBooks", method = RequestMethod.GET, produces = "application/json")
 	public List<Book> readAllBooks() {
 		try {
-				return bookRepo.findAll();
+			return bookRepo.findAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
+
 	@RequestMapping(value = "/lms/readAllGenres", method = RequestMethod.GET, produces = "application/json")
 	public List<Genre> readAllGenres() {
 		try {
-				return genreRepo.findAll();
+			return genreRepo.findAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -115,8 +126,28 @@ public class AdminService {
 	@RequestMapping(value = "/lms/deleteGenre", method = RequestMethod.GET)
 	public void deleteGenre(@RequestParam int genreId) {
 		genreRepo.deleteById(genreId);
-	}	
+	}
 	
+	@RequestMapping(value = "lms/readAllBorrowers", method = RequestMethod.GET)
+	public List<Borrower> readAllBorrowers() {
+		try {
+			return borrowerRepo.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+//	@RequestMapping(value = "lms/readBorrowerById", method = RequestMethod.GET)
+//	public Optional<Borrower> readBorrowerById(@RequestParam int borrowerId) {
+//		try {
+//			return borrowerRepo.findById(borrowerId);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return null;
+//	}
+
 //	@RequestMapping(value = "/lms/readAuthorsByName/{searchString}", method = RequestMethod.GET, produces = "application/json")
 //	@ResponseBody
 //	public List<Author> readAuthorsByName(@PathVariable("searchString") String searchString) {
