@@ -14,12 +14,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author joe
@@ -28,7 +28,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name="tbl_author", catalog="library")
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="authorName", scope=Author.class)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@XmlRootElement
 public class Author {
 	
 	@Id

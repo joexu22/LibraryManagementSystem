@@ -2,9 +2,10 @@ package com.gcit.lms.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,6 +41,16 @@ public class AdminService {
 	@Autowired
 	BorrowerRepository borrowerRepo;
 
+	@GetMapping(value = "/lms/authors", produces = { "application/json", "application/xml" })
+	public List<Author> getAllAuthors() {
+		return authorRepo.findAll();
+	}
+
+	@GetMapping(value = "/lms/authors/{authorId}", produces = { "application/json", "application/xml" })
+	public Author getAuthorById(@PathVariable Integer authorId) {
+		return authorRepo.getOne(authorId);
+	}
+
 	@RequestMapping(value = "/lms/readBranchs", method = RequestMethod.GET, produces = "application/json")
 	public List<Branch> readBranch() {
 		List<Branch> branchs = new ArrayList<>();
@@ -67,7 +78,7 @@ public class AdminService {
 	public void deleteBranch(@RequestParam int branchId) {
 		branchRepo.deleteById(branchId);
 	}
-	
+
 	@RequestMapping(value = "/lms/deleteAuthor", method = RequestMethod.GET)
 	public void deleteAuthor(@RequestParam int authorId) {
 		authorRepo.deleteById(authorId);
@@ -127,7 +138,7 @@ public class AdminService {
 	public void deleteGenre(@RequestParam int genreId) {
 		genreRepo.deleteById(genreId);
 	}
-	
+
 	@RequestMapping(value = "lms/readAllBorrowers", method = RequestMethod.GET)
 	public List<Borrower> readAllBorrowers() {
 		try {
@@ -137,7 +148,7 @@ public class AdminService {
 		}
 		return null;
 	}
-	
+
 //	@RequestMapping(value = "lms/readBorrowerById", method = RequestMethod.GET)
 //	public Optional<Borrower> readBorrowerById(@RequestParam int borrowerId) {
 //		try {
@@ -170,13 +181,13 @@ public class AdminService {
 			authorRepo.save(author);
 //			if (author.getAuthorId() != null && author.getAuthorName() != null) {
 //				authorRepo.save(author);
-//				returnString = "Auther updated sucessfully";
+//				returnString = "Author updated successfully";
 //			} else if (author.getAuthorId() != null) {
 //				adao.deleteAuthor(author);
-//				returnString = "Auther deleted sucessfully";
+//				returnString = "Author deleted successfully";
 //			} else {
 //				adao.addAuthor(author);
-//				returnString = "Auther saved sucessfully";
+//				returnString = "Author saved successfully";
 //			}
 		} catch (Exception e) {
 			e.printStackTrace();
