@@ -7,6 +7,4 @@ import com.gcit.lms.entity.Branch;
 
 @Repository
 public interface BranchRepository extends JpaRepository<Branch, Integer> {
-	//@Query("from Branch where branchName like %:searchString%")
-	//public List<Branch> (@Param(value = "searchString") String authorName);
 }

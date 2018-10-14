@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Entity
 @Table(name="tbl_library_branch", catalog="library")
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="branchName", scope=Branch.class)
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties(ignoreUnknown = true)
 @XmlRootElement
 public class Branch {
 	@Id

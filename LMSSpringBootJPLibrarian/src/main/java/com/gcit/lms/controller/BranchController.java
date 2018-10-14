@@ -17,42 +17,42 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.gcit.lms.entity.Author;
-import com.gcit.lms.repositories.AuthorRepository;
+import com.gcit.lms.entity.Branch;
+import com.gcit.lms.repositories.BranchRepository;
 
 @Controller
-@RequestMapping("/lms/authors")
-@ExposesResourceFor(Author.class)
-public class AuthorController {
+@RequestMapping("/lms/branches")
+@ExposesResourceFor(Branch.class)
+public class BranchController {
 
-	private final AuthorRepository repository;
+	private final BranchRepository repository;
 	private final EntityLinks entityLinks;
 	
-	public AuthorController(AuthorRepository authorRepo, EntityLinks entityLinks) {
-		this.repository = authorRepo;
+	public BranchController(BranchRepository branchRepo, EntityLinks entityLinks) {
+		this.repository = branchRepo;
 		this.entityLinks = entityLinks;
 	}	
 	
 	@GetMapping(produces = { "application/json", "application/xml" })
-	HttpEntity<Resources<Author>> getAuthors() {
-		Resources<Author> resources = new Resources<>(this.repository.findAll());
-		resources.add(this.entityLinks.linkToCollectionResource(Author.class));
+	HttpEntity<Resources<Branch>> getBranchs() {
+		Resources<Branch> resources = new Resources<>(this.repository.findAll());
+		resources.add(this.entityLinks.linkToCollectionResource(Branch.class));
 		return new ResponseEntity<>(resources, HttpStatus.OK);
 	}
 
 	@GetMapping(path = "/{id}", produces = { "application/json", "application/xml" })
-	HttpEntity<Resource<Author>> getAuthor(@PathVariable Integer id) {
-		Resource<Author> resource = new Resource<>(this.repository.getOne(id));
-		resource.add(this.entityLinks.linkToSingleResource(Author.class, id));
+	HttpEntity<Resource<Branch>> getBranch(@PathVariable Integer id) {
+		Resource<Branch> resource = new Resource<>(this.repository.getOne(id));
+		resource.add(this.entityLinks.linkToSingleResource(Branch.class, id));
 		return new ResponseEntity<>(resource, HttpStatus.OK);
 	}
 	
-	@PostMapping(value = "/author", produces = { "application/json", "application/xml" })
-	HttpEntity<Resource<Author>> postAuthors(@RequestBody final Author body) {
+	@PostMapping(value = "/branch", produces = { "application/json", "application/xml" })
+	HttpEntity<Resource<Branch>> postBranchs(@RequestBody final Branch body) {
 		try {
-			Author author = this.repository.save(body);
-			Resource<Author> resource = new Resource<>(author);
-			resource.add(this.entityLinks.linkToSingleResource(Author.class, author.getAuthorId()));
+			Branch branch = this.repository.save(body);
+			Resource<Branch> resource = new Resource<>(branch);
+			resource.add(this.entityLinks.linkToSingleResource(Branch.class, branch.getBranchId()));
 			return new ResponseEntity<>(resource, HttpStatus.CREATED);
 		} catch (ResourceNotFoundException e) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).build();
@@ -60,19 +60,19 @@ public class AuthorController {
 	}
 	
 	@PutMapping(value = "/{id}", produces = { "application/json", "application/xml" })
-	HttpEntity<Resource<Author>> putAuthor(@PathVariable Integer id, @RequestBody Author body) {
+	HttpEntity<Resource<Branch>> putBranch(@PathVariable Integer id, @RequestBody Branch body) {
 		try {
 			if (this.repository.existsById(id)) {
-				body.setAuthorId(id);
-				Author author = this.repository.save(body);
-				Resource<Author> resource = new Resource<>(author);
-				resource.add(this.entityLinks.linkToSingleResource(Author.class, author.getAuthorId()));
+				body.setBranchId(id);
+				Branch branch = this.repository.save(body);
+				Resource<Branch> resource = new Resource<>(branch);
+				resource.add(this.entityLinks.linkToSingleResource(Branch.class, branch.getBranchId()));
 				return new ResponseEntity<>(resource, HttpStatus.OK);
 			} else {
-				body.setAuthorId(id);
-				Author author = this.repository.save(body);
-				Resource<Author> resource = new Resource<>(author);
-				resource.add(this.entityLinks.linkToSingleResource(Author.class, author.getAuthorId()));
+				body.setBranchId(id);
+				Branch branch = this.repository.save(body);
+				Resource<Branch> resource = new Resource<>(branch);
+				resource.add(this.entityLinks.linkToSingleResource(Branch.class, branch.getBranchId()));
 				return new ResponseEntity<>(resource, HttpStatus.CREATED);				
 			}
 		} catch (ResourceNotFoundException e) {
@@ -81,7 +81,7 @@ public class AuthorController {
 	}
 
 	@DeleteMapping(path = "/{id}", produces = { "application/json", "application/xml" })
-	HttpEntity<Void> deleteAuthor(@PathVariable Integer id) {
+	HttpEntity<Void> deleteBranch(@PathVariable Integer id) {
 		try {
 			this.repository.deleteById(id);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);

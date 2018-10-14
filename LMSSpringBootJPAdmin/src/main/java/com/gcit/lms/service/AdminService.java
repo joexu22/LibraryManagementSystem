@@ -41,15 +41,15 @@ public class AdminService {
 	@Autowired
 	BorrowerRepository borrowerRepo;
 
-	@GetMapping(value = "/lms/authors", produces = { "application/json", "application/xml" })
-	public List<Author> getAllAuthors() {
-		return authorRepo.findAll();
-	}
-
-	@GetMapping(value = "/lms/authors/{authorId}", produces = { "application/json", "application/xml" })
-	public Author getAuthorById(@PathVariable Integer authorId) {
-		return authorRepo.getOne(authorId);
-	}
+//	@GetMapping(value = "/lms/authors", produces = { "application/json", "application/xml" })
+//	public List<Author> getAllAuthors() {
+//		return authorRepo.findAll();
+//	}
+//
+//	@GetMapping(value = "/lms/authors/{authorId}", produces = { "application/json", "application/xml" })
+//	public Author getAuthorById(@PathVariable Integer authorId) {
+//		return authorRepo.getOne(authorId);
+//	}
 
 	@RequestMapping(value = "/lms/readBranchs", method = RequestMethod.GET, produces = "application/json")
 	public List<Branch> readBranch() {
