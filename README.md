@@ -22,3 +22,8 @@ Back End
 
 Front End
 * TODO
+
+Incorporates AWS
+* S3
+* EC2
+* ect/etc
