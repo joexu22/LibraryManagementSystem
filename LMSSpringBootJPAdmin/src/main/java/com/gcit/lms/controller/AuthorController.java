@@ -1,5 +1,7 @@
 package com.gcit.lms.controller;
 
+import java.util.Optional;
+
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.hateoas.EntityLinks;
 import org.springframework.hateoas.ExposesResourceFor;
@@ -35,16 +37,28 @@ public class AuthorController {
 	
 	@GetMapping(produces = { "application/json", "application/xml" })
 	HttpEntity<Resources<Author>> getAuthors() {
-		Resources<Author> resources = new Resources<>(this.repository.findAll());
-		resources.add(this.entityLinks.linkToCollectionResource(Author.class));
-		return new ResponseEntity<>(resources, HttpStatus.OK);
+		try {
+			Resources<Author> resources = new Resources<>(this.repository.findAll());
+			resources.add(this.entityLinks.linkToCollectionResource(Author.class));
+			return new ResponseEntity<>(resources, HttpStatus.OK);
+		} catch (ResourceNotFoundException e) {
+			return ResponseEntity.status(HttpStatus.CONFLICT).build();
+		}
 	}
 
 	@GetMapping(path = "/{id}", produces = { "application/json", "application/xml" })
 	HttpEntity<Resource<Author>> getAuthor(@PathVariable Integer id) {
-		Resource<Author> resource = new Resource<>(this.repository.getOne(id));
-		resource.add(this.entityLinks.linkToSingleResource(Author.class, id));
-		return new ResponseEntity<>(resource, HttpStatus.OK);
+		try {
+			if (this.repository.existsById(id)) {
+				Resource<Author> resource = new Resource<>(this.repository.getOne(id));
+				resource.add(this.entityLinks.linkToSingleResource(Author.class, id));
+				return new ResponseEntity<>(resource, HttpStatus.OK);
+			} else {				
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+		} catch (ResourceNotFoundException e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
 	}
 	
 	@PostMapping(value = "/author", produces = { "application/json", "application/xml" })
