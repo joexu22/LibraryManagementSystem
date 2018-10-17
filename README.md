@@ -21,7 +21,7 @@ Back End
 	* Able to checkout/return books
 
 Front End
-* TODO
+* Basic AngularJS Frontend
 
 Incorporates AWS
 * S3
