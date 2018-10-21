@@ -19,7 +19,7 @@ public class BorrowerService {
 	@Autowired
 	BranchRepository borrowerRepo;
 
-	@RequestMapping(value = "/lms/readBorrowers", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/lms/readBorrowers", method = RequestMethod.GET, produces = {"application/json", "application/xml"})
 	public List<Borrower> readBarrowers() {
 		List<Borrower> borrowers = new ArrayList<>();
 		try {
