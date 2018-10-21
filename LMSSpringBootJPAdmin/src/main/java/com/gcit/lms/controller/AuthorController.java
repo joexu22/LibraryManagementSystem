@@ -1,7 +1,5 @@
 package com.gcit.lms.controller;
 
-import java.util.Optional;
-
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.hateoas.EntityLinks;
 import org.springframework.hateoas.ExposesResourceFor;
