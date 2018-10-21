@@ -21,4 +21,12 @@ Back End
 	* Able to checkout/return books
 
 Front End
-* TODO
+* Basic AngularJS Frontend
+
+Incorporates AWS
+* S3
+* EC2
+* ect/etc
+
+TODO:
+* Need To Test Triggers
